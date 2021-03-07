@@ -5,24 +5,39 @@ const app = express();
 
 app.use(express.json());
 
-app.post('/cats', (req, res) => {
-  Cat.create(req.body).then(cat => res.status(201).json(cat));
-})
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
-app.get('/cats', (req, res) => {
-  Cat.findAll({ where: req.query }).then(cats => res.status(200).json({ cats }));
-})
+app.post("/cats", (req, res) => {
+  Cat.create(req.body).then((cat) => res.status(201).json(cat));
+});
 
-app.get('/cats/:catId', (req, res) => {
-  Cat.findByPk(req.params.catId).then(cat => res.status(200).json(cat));
-})
+app.get("/cats", (req, res) => {
+  Cat.findAll({ where: req.query }).then((cats) =>
+    res.status(200).json({ cats })
+  );
+});
 
-app.patch('/cats/:catId', (req, res) => {
-  Cat.update(req.body, { where: { id: req.params.catId } }).then(() => res.status(201).send())
-})
+app.get("/cats/:catId", (req, res) => {
+  Cat.findByPk(req.params.catId).then((cat) => res.status(200).json(cat));
+});
 
-app.patch('/feed/:catId', (req, res) => {
-  Cat.update({ lastFed: new Date() }, { where: { id: req.params.catId } }).then(() => res.status(201).send())
-})
+app.patch("/cats/:catId", (req, res) => {
+  Cat.update(req.body, {
+    where: { id: req.params.catId },
+  }).then((catsUpdated) => res.status(201).send({ catsUpdated }));
+});
+
+app.patch("/feed/:catId", (req, res) => {
+  Cat.update(
+    { lastFed: new Date() },
+    { where: { id: req.params.catId } }
+  ).then(() => res.status(201).send());
+});
+
+app.delete("/cats/:catId", (req, res) => {
+  Cat.destoy(
+    { where: { id: req.params.catId } }
+  ).then(catsDeleted => res.status(201).send({ catsDeleted }));
+});
 
 module.exports = app;
