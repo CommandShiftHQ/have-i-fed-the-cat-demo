@@ -24,7 +24,7 @@ app.get("/cats/:catId", (req, res) => {
 app.patch("/cats/:catId", (req, res) => {
   Cat.update(req.body, {
     where: { id: req.params.catId },
-  }).then((catsUpdated) => res.status(201).send({ catsUpdated }));
+  }).then(([catsUpdated]) => res.status(201).send({ catsUpdated }));
 });
 
 app.patch("/feed/:catId", (req, res) => {
