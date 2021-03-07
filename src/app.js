@@ -35,7 +35,7 @@ app.patch("/feed/:catId", (req, res) => {
 });
 
 app.delete("/cats/:catId", (req, res) => {
-  Cat.destoy(
+  Cat.destroy(
     { where: { id: req.params.catId } }
   ).then(catsDeleted => res.status(201).send({ catsDeleted }));
 });
