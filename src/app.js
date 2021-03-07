@@ -3,7 +3,6 @@ const { Cat } = require('./models');
 
 const app = express();
 
-// we expect to have to parse json from request bodies
 app.use(express.json());
 
 app.post('/cats', (req, res) => {
@@ -25,7 +24,5 @@ app.patch('/cats/:catId', (req, res) => {
 app.patch('/feed/:catId', (req, res) => {
   Cat.update({ lastFed: new Date() }, { where: { id: req.params.catId } }).then(() => res.status(201).send())
 })
-
-// we will put our routes and controller functions here
 
 module.exports = app;
