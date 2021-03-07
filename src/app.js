@@ -10,7 +10,7 @@ app.post('/cats', (req, res) => {
 })
 
 app.get('/cats', (req, res) => {
-  Cat.findAll({ where: req.query }).then(cats => res.status(200).json(cats));
+  Cat.findAll({ where: req.query }).then(cats => res.status(200).json({ cats }));
 })
 
 app.get('/cats/:catId', (req, res) => {
