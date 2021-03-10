@@ -1,0 +1,277 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Have I Fed the Cat?",
+    "description": "An web app for tracking when the cat was last fed. Ideal for cats who are good at manipulating their humans.",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "basePath": "/",
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "schemes": ["http", "https"],
+  "tags": [
+    {
+      "name": "Cats",
+      "description": "Endpoints for interacting with cats"
+    }
+  ],
+  "paths": {
+    "/cats": {
+      "post": {
+        "tags": [
+          "Cats"
+        ],
+        "summary": "creates a new cat in the database",
+        "parameters": [
+          {
+            "name": "PostCatRequest",
+            "in": "body",
+            "description": "post a cat to the database",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "breed",
+                "markings"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "breed": {
+                  "type": "string"
+                },
+                "markings": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "cat successfully created",
+            "schema": {
+              "type": "object",
+              "$ref": "#/definitions/CatObject"
+            }
+          }
+        },
+        "produces": ["application/json"]
+      },
+      "get": {
+        "summary": "reads cats from the database",
+        "tags": [
+          "Cats"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "breed",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "markings",
+            "type": "string",
+            "in": "query"
+          },
+          {
+            "name": "lastFed",
+            "type": "string",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns array of cats",
+            "schema": {
+              "$ref": "#/definitions/CatObjects"
+            }
+          }
+        }
+      }
+    },
+    "/cats/{catId}": {
+      "get": {
+        "summary": "read a single cat from the database",
+        "tags": [
+          "Cats"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "number",
+            "name": "catId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "returns requested cat from database",
+            "schema": {
+              "$ref": "#/definitions/CatObject"
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "update a cat in the database",
+        "tags": [
+          "Cats"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "number",
+            "name": "catId",
+            "required": true
+          },
+          {
+            "name": "PatchCatRequest",
+            "in": "body",
+            "description": "update a cat in the database",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "breed": {
+                  "type": "string"
+                },
+                "markings": {
+                  "type": "string"
+                },
+                "lastFed": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "number of cats updated",
+            "schema": {
+              "type": "object",
+              "required": [
+                "catsUpdated"
+              ],
+              "properties": {
+                "catsUpdated": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete a cat in the database",
+        "tags": [
+          "Cats"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "type": "number",
+            "name": "catId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "number of cats deleted",
+            "schema": {
+              "type": "object",
+              "required": [
+                "catsDeleted"
+              ],
+              "properties": {
+                "catsDeleted": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feed/{catId}": {
+        "patch": {
+          "tags": [
+            "Cats"
+          ],
+          "summary": "update the lastFed property of a cat to the current time",
+          "parameters": [
+            {
+              "in": "path",
+              "type": "number",
+              "name": "catId",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "cat successfullt fed"
+            }
+          }
+        }
+    }
+  },
+  "definitions": {
+    "CatObjects": {
+      "properties": {
+        "cats": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CatObject"
+          }
+        }
+      }
+    },
+    "CatObject": {
+      "required": [
+        "id",
+        "name",
+        "breed",
+        "markings",
+        "lastFed",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "id":{
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "breed": {
+          "type": "string"
+        },
+        "markings": {
+          "type": "string"
+        },
+        "lastFed": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,7 @@
-const express = require('express');
-const { Cat } = require('./models');
+const express = require("express");
+const { Cat } = require("./models");
+const swaggerUi = require("swagger-ui-express");
+const swaggerDoc = require("../swagger.json");
 
 const app = express();
 

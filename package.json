@@ -12,7 +12,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
-    "sequelize": "^6.5.0"
+    "sequelize": "^6.5.0",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
