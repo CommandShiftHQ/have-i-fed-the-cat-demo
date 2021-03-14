@@ -77,8 +77,8 @@ describe('/cats', () => {
           .get('/cats')
           .send()
           .then(({ status, body }) => {
-            console.log(body);
             expect(status).to.equal(200);
+            expect(body.cats.length).to.equal(cats.length);
             body.cats.forEach(cat => {
               const expected = cats.find(c => c.id == cat.id).dataValues;
               expect(cat.name).to.deep.equal(expected.name);
