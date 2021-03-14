@@ -94,6 +94,24 @@ describe('/cats', () => {
     });
 
     describe('/cats/{catId}', () => {
+      describe('GET', () => {
+        it('returns the correct cat record', (done) => {
+          const catData = cats[0].dataValues;
+          request(app)
+            .get(`/cats/${catData.id}`)
+            .send()
+            .then(({ status, body }) => {
+              expect(status).to.equal(200);
+              expect(body.name).to.equal(catData.name);
+              expect(body.breed).to.equal(catData.breed);
+              expect(body.markings).to.equal(catData.markings);
+
+              done();
+            })
+            .catch((error) => done(error));
+        });
+      });
+
       describe('PATCH', () => {
         it('updates a cat in the database', (done) => {
           const catData = cats[0].dataValues;
