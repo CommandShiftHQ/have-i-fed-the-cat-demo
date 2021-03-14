@@ -51,19 +51,19 @@ describe('/cats', () => {
     beforeEach((done) => {
       Promise.all([
         Cat.create({
-          name: 'Boris',
+          name: 'Jenny Any Dots',
+          breed: 'domestic shorthair',
+          markings: 'ginger tabby'
+        }),
+        Cat.create({
+          name: 'Bustopher Jones',
           breed: 'domestic shorthair',
           markings: 'tuxedo'
         }),
         Cat.create({
-          name: 'Boris',
+          name: 'Gus',
           breed: 'domestic shorthair',
-          markings: 'tuxedo'
-        }),
-        Cat.create({
-          name: 'Boris',
-          breed: 'domestic shorthair',
-          markings: 'tuxedo'
+          markings: 'grey tabby'
         })
       ])
       .then((documents) => {
