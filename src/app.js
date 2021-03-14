@@ -29,13 +29,13 @@ app.patch("/feed/:catId", (req, res) => {
   Cat.update(
     { lastFed: new Date() },
     { where: { id: req.params.catId } }
-  ).then(() => res.status(201).send());
+  ).then(() => res.status(200).send());
 });
 
 app.delete("/cats/:catId", (req, res) => {
   Cat.destroy(
     { where: { id: req.params.catId } }
-  ).then(catsDeleted => res.status(201).send({ catsDeleted }));
+  ).then(catsDeleted => res.status(200).send({ catsDeleted }));
 });
 
 module.exports = app;

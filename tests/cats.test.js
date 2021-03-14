@@ -2,7 +2,6 @@ const app = require('../src/app');
 const { expect } = require('chai');
 const request = require('supertest');
 const { Cat } = require('../src/models');
-const { after } = require('mocha');
 
 describe('/cats', () => {
   before((done) => {
@@ -128,6 +127,23 @@ describe('/cats', () => {
             })
             .then((catDocument) => {
               expect(catDocument.name).to.equal('new name');
+
+              done();
+            })
+            .catch((error) => done(error));
+        });
+      });
+
+      describe('DELETE', () => {
+        it('deletes the cat from the datbase', (done) => {
+          const catData = cats[0].dataValues;
+          request(app)
+            .delete(`/cats/${catData.id}`)
+            .send()
+            .then(({ status, body }) => {
+              expect(status).to.equal(200);
+              expect(body.catsDeleted).to.equal(1);
+
               done();
             })
             .catch((error) => done(error));
