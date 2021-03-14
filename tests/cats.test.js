@@ -2,10 +2,16 @@ const app = require('../src/app');
 const { expect } = require('chai');
 const request = require('supertest');
 const { Cat } = require('../src/models');
+const { after } = require('mocha');
 
 describe('/cats', () => {
   before((done) => {
     Cat.sequelize.sync().then(() => done());
+  })
+
+  afterEach((done) => {
+    Cat.destroy({ where: {} })
+    .then(() => done());
   })
 
   describe('POST', () => {
