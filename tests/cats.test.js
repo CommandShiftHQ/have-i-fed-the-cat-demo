@@ -2,7 +2,6 @@ const app = require('../src/app');
 const { expect } = require('chai');
 const request = require('supertest');
 const { Cat } = require('../src/models');
-const cats = require('../src/models/cats');
 
 describe('/cats', () => {
   before((done) => {
