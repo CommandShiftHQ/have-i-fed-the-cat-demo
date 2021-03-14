@@ -14,33 +14,35 @@ describe('/cats', () => {
     .then(() => done());
   })
 
-  describe('POST', () => {
-    it('creates a new cat in the database', (done) => {
-      const catData = {
-        name: 'Boris',
-        breed: 'domestic shorthair',
-        markings: 'tuxedo'
-      }
-
-      request(app)
-        .post('/cats')
-        .send(catData)
-        .then(({ status, body }) => {
-          expect(status).to.equal(201);
-
-          expect(body.name).to.equal(catData.name);
-          expect(body.breed).to.equal(catData.breed);
-          expect(body.markings).to.equal(catData.markings);
-          
-          return Cat.findByPk(body.id, { raw: true });
-        })
-        .then(catDocument => {
-          expect(catDocument.name).to.equal(catData.name);
-          expect(catDocument.breed).to.equal(catData.breed);
-          expect(catDocument.markings).to.equal(catData.markings);
-          done();
-        })
-        .catch(error => done(error));
+  describe('with no records in the database', () => {
+    describe('POST', () => {
+      it('creates a new cat in the database', (done) => {
+        const catData = {
+          name: 'Boris',
+          breed: 'domestic shorthair',
+          markings: 'tuxedo'
+        }
+  
+        request(app)
+          .post('/cats')
+          .send(catData)
+          .then(({ status, body }) => {
+            expect(status).to.equal(201);
+  
+            expect(body.name).to.equal(catData.name);
+            expect(body.breed).to.equal(catData.breed);
+            expect(body.markings).to.equal(catData.markings);
+            
+            return Cat.findByPk(body.id, { raw: true });
+          })
+          .then(catDocument => {
+            expect(catDocument.name).to.equal(catData.name);
+            expect(catDocument.breed).to.equal(catData.breed);
+            expect(catDocument.markings).to.equal(catData.markings);
+            done();
+          })
+          .catch(error => done(error));
+      });
     });
   });
 
@@ -88,6 +90,30 @@ describe('/cats', () => {
             done();
           })
           .catch((error) => done(error));
+      });
+    });
+
+    describe('/cats/{catId}', () => {
+      describe('PATCH', () => {
+        it('updates a cat in the database', (done) => {
+          const catData = cats[0].dataValues;
+          request(app)
+            .patch(`/cats/${catData.id}`)
+            .send({
+              name: 'new name'
+            })
+            .then(({ status, body }) => {
+              expect(status).to.equal(200);
+              expect(body.catsUpdated).to.equal(1);
+
+              return Cat.findByPk(catData.id, { raw: true });
+            })
+            .then((catDocument) => {
+              expect(catDocument.name).to.equal('new name');
+              done();
+            })
+            .catch((error) => done(error));
+        });
       });
     });
   });
