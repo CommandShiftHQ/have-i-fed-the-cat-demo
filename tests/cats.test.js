@@ -43,4 +43,52 @@ describe('/cats', () => {
         .catch(error => done(error));
     });
   });
+
+  describe('with records in the database', () => {
+    let cats;
+
+    beforeEach((done) => {
+      Promise.all([
+        Cat.create({
+          name: 'Boris',
+          breed: 'domestic shorthair',
+          markings: 'tuxedo'
+        }),
+        Cat.create({
+          name: 'Boris',
+          breed: 'domestic shorthair',
+          markings: 'tuxedo'
+        }),
+        Cat.create({
+          name: 'Boris',
+          breed: 'domestic shorthair',
+          markings: 'tuxedo'
+        })
+      ])
+      .then((documents) => {
+        cats = documents;
+        done();
+      })
+    });
+
+    describe('GET', () => {
+      it('returns all records in the database', (done) => {
+        request(app)
+          .get('/cats')
+          .send()
+          .then(({ status, body }) => {
+            console.log(body);
+            expect(status).to.equal(200);
+            body.cats.forEach(cat => {
+              const expected = cats.find(c => c.id == cat.id).dataValues;
+              expect(cat.name).to.deep.equal(expected.name);
+              expect(cat.breed).to.deep.equal(expected.breed);
+              expect(cat.markings).to.deep.equal(expected.markings);
+            });
+            done();
+          })
+          .catch((error) => done(error));
+      });
+    });
+  });
 });
