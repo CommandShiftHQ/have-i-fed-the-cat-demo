@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "dotenv": "^8.2.0",
+    "faker": "^5.4.0",
     "nodemon": "^2.0.7",
     "sinon": "^9.2.4"
   }
