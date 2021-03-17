@@ -1,0 +1,19 @@
+.cat-card {
+  width: 150px;
+  height: 150px;
+  padding: 20px;
+  margin: 20px;
+  border: 5px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.cat-card img {
+  border-radius: 100%;
+}
+
+.cat-card a {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

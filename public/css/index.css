@@ -1,0 +1,19 @@
+body {
+  padding: 0px;
+  margin: 0px;
+}
+
+nav {
+  width: 100%;
+  height: 100px;
+  background-color: rebeccapurple;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h1 {
+  margin: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

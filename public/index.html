@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/card-list.css" />
+  <link rel="stylesheet" href="css/cat-card.css" />
+  <title>Have I Fed The Cat?</title>
+</head>
+<body>
+  <nav>
+    <h1>Have I Fed The Cat?</h1>
+  </nav>
+  <main>
+    <div class="card-list"></div>
+  </main>
+</body>
+<script src="js/get-cats.js"></script>
+<script>
+  // immediately invoked function expression - IIFE
+  (async () => {
+    const cats = await getCats();
+
+    const catListElement = document.getElementsByClassName('card-list')[0];
+
+    cats.forEach(cat => {
+      const catCardElement = document.createElement('div');
+      catCardElement.className = 'cat-card';
+
+      const catImageElement = document.createElement('img');
+      catImageElement.src = cat.profileImage || 'http://placekitten.com/100/100' 
+
+      const catProfileLinkElement = document.createElement('a');
+      catProfileLinkElement.text = cat.name;
+      catProfileLinkElement.href = `http://${window.location.host}/html/profile.html?catId=${cat.id}`
+
+      catCardElement.appendChild(catImageElement);
+      catCardElement.appendChild(catProfileLinkElement);
+      catListElement.appendChild(catCardElement);
+    });
+
+  })()
+</script>
+</html>

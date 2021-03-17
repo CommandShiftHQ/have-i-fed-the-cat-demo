@@ -9,6 +9,8 @@ app.use(express.json());
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
+app.use(express.static('public'))
+
 app.post("/cats", (req, res) => {
   Cat.create(req.body).then((cat) => res.status(201).json(cat));
 });
@@ -40,6 +42,10 @@ app.delete("/cats/:catId", (req, res) => {
   Cat.destroy(
     { where: { id: req.params.catId } }
   ).then(catsDeleted => res.status(201).send({ catsDeleted }));
+});
+
+app.get('*', (_, res) => {
+  res.redirect('/');
 });
 
 module.exports = app;
