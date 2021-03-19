@@ -6,5 +6,4 @@ const feedCat = async (id) => {
   } else {
     window.location.replace(`http://${window.location.host}/html/profile.html?catId=${id}`);
   }
-  return data;
 };
