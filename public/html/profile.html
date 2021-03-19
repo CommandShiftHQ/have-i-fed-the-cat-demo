@@ -22,6 +22,7 @@
 </body>
 <script src="../js/get-cat.js"></script>
 <script src="../js/format-date.js"></script>
+<script src="../js/feed-cat.js"></script>
 <script>
   // immediately invoked function expression - IIFE
   (async () => {
@@ -60,9 +61,14 @@
       const catPictureElement = document.createElement('img');
       catPictureElement.src = profileImage ? profileImage : 'http://placekitten.com/200/200';
 
+      const feedCatButtonElement = document.createElement('button');
+      feedCatButtonElement.textContent = `Feed ${name}`
+      feedCatButtonElement.onclick = () => feedCat(catId);
+
       columnContainer.appendChild(catBreedTextElement);
       columnContainer.appendChild(catMarkingsTextElement);
       columnContainer.appendChild(lastFedTextElement);
+      columnContainer.appendChild(feedCatButtonElement);
 
       rowContainer.appendChild(catPictureElement);
       rowContainer.appendChild(columnContainer);
