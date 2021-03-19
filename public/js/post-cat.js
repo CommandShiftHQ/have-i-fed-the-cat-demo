@@ -21,5 +21,5 @@ async function postCat(event) {
   const responseBody = await response.json()
 
   console.log(responseBody);
-  window.location.replace(`http://${window.location.host}/`);
+  window.location.replace(`http://${window.location.host}/html/profile.html?catId=${responseBody.id}`);
 }
