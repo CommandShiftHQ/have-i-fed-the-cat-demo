@@ -11,9 +11,11 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 5px solid black;
 }
 
-h1 {
+nav h1 {
   margin: 10px;
+  color: whitesmoke;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }

@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/index.css" />
-  <link rel="stylesheet" href="css/card-list.css" />
+  <link rel="stylesheet" href="css/content-container.css" />
   <link rel="stylesheet" href="css/cat-card.css" />
   <title>Have I Fed The Cat?</title>
 </head>
@@ -14,7 +14,7 @@
     <h1>Have I Fed The Cat?</h1>
   </nav>
   <main>
-    <div class="card-list"></div>
+    <div id="content-container"></div>
   </main>
 </body>
 <script src="js/get-cats.js"></script>
@@ -23,7 +23,7 @@
   (async () => {
     const cats = await getCats();
 
-    const catListElement = document.getElementsByClassName('card-list')[0];
+    const catListElement = document.getElementById('content-container');
 
     cats.forEach(cat => {
       const catCardElement = document.createElement('div');

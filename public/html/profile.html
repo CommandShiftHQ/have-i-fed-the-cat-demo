@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
   <link rel="stylesheet" href="../css/index.css" />
+  <link rel="stylesheet" href="../css/content-container.css" />
+  <link rel="stylesheet" href="../css/content-card.css" />
+  <link rel="stylesheet" href="../css/data-container.css" />
   <title>Have I Fed The Cat?</title>
 </head>
 <body>
@@ -12,9 +15,11 @@
     <h1>Have I Fed The Cat?</h1>
   </nav>
   <main>
+    <div id="content-container" ></div>
   </main>
 </body>
 <script src="../js/get-cat.js"></script>
+<script src="../js/format-date.js"></script>
 <script>
   // immediately invoked function expression - IIFE
   (async () => {
@@ -22,8 +27,50 @@
     const catId = urlParams.get('catId');
 
     const cat = catId ? await getCat(catId) : null;
+    const contentElement = document.getElementById('content-container')
 
-    console.log(cat);
+    const cardElement = document.createElement('div');
+      cardElement.className = 'content-card';
+
+    if (cat) {
+      const { name, breed, markings, lastFed } = cat;
+
+      const lastFedString = lastFed ? formatDate(lastFed): 'never :(';
+
+      const dataContainer = document.createElement('div');
+      dataContainer.className = 'data-container';
+
+      const catNameTitleElement = document.createElement('h1');
+      catNameTitleElement.textContent = name;
+
+      const catBreedTextElement = document.createElement('span');
+      catBreedTextElement.innerHTML= `<b>Breed</b>: ${breed}`;
+
+      const catMarkingsTextElement = document.createElement('span');
+      catMarkingsTextElement.innerHTML = `<b>Markings</b>: ${markings}`;
+
+      const lastFedTextElement = document.createElement('span');
+      lastFedTextElement.innerHTML = `<b>Last Fed</b>: ${lastFedString}`;
+
+      dataContainer.appendChild(catBreedTextElement);
+      dataContainer.appendChild(catMarkingsTextElement);
+      dataContainer.appendChild(lastFedTextElement);
+
+      cardElement.appendChild(catNameTitleElement);
+      cardElement.appendChild(dataContainer)
+    } else {
+
+      const notFoundTitleElement = document.createElement('h1');
+      notFoundTitleElement.textContent = '404';
+
+      const notFoundMessageElement = document.createElement('h3');
+      notFoundMessageElement.textContent = 'cat does not exist';
+
+      cardElement.appendChild(notFoundTitleElement);
+      cardElement.appendChild(notFoundMessageElement);
+    }
+
+    contentElement.appendChild(cardElement);
   })()
 </script>
 </html>
