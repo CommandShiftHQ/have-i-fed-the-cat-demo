@@ -20,6 +20,9 @@ async function postCat(event) {
 
   const responseBody = await response.json()
 
-  console.log(responseBody);
-  window.location.replace(`http://${window.location.host}/html/profile.html?catId=${responseBody.id}`);
+  if (!response.ok) {
+    window.alert('Oops: Something went wrong :(');
+  } else {
+    window.location.replace(`http://${window.location.host}/html/profile.html?catId=${responseBody.id}`);
+  }
 }
