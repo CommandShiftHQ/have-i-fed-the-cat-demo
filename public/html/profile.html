@@ -23,6 +23,7 @@
 <script src="../js/get-cat.js"></script>
 <script src="../js/format-date.js"></script>
 <script src="../js/feed-cat.js"></script>
+<script src="../js/delete-cat.js"></script>
 <script>
   // immediately invoked function expression - IIFE
   (async () => {
@@ -61,14 +62,25 @@
       const catPictureElement = document.createElement('img');
       catPictureElement.src = profileImage ? profileImage : 'http://placekitten.com/200/200';
 
+      const catControlsElement = document.createElement('div')
+      catControlsElement.className = 'row-container'
+
       const feedCatButtonElement = document.createElement('button');
       feedCatButtonElement.textContent = `Feed ${name}`
       feedCatButtonElement.onclick = () => feedCat(catId);
 
+      const deleteCatButtonElement = document.createElement('button');
+      deleteCatButtonElement.textContent = `Delete ${name}`
+      deleteCatButtonElement.onclick = () => deleteCat(catId);
+
+
+      catControlsElement.appendChild(feedCatButtonElement);
+      catControlsElement.appendChild(deleteCatButtonElement);
+
       columnContainer.appendChild(catBreedTextElement);
       columnContainer.appendChild(catMarkingsTextElement);
       columnContainer.appendChild(lastFedTextElement);
-      columnContainer.appendChild(feedCatButtonElement);
+      columnContainer.appendChild(catControlsElement);
 
       rowContainer.appendChild(catPictureElement);
       rowContainer.appendChild(columnContainer);
