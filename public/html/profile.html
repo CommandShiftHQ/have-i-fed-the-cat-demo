@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="../css/index.css" />
   <link rel="stylesheet" href="../css/content-container.css" />
   <link rel="stylesheet" href="../css/content-card.css" />
-  <link rel="stylesheet" href="../css/data-container.css" />
+  <link rel="stylesheet" href="../css/column-container.css" />
+  <link rel="stylesheet" href="../css/row-container.css" />
   <title>Have I Fed The Cat?</title>
 </head>
 <body>
@@ -34,12 +35,15 @@
       cardElement.className = 'content-card';
 
     if (cat) {
-      const { name, breed, markings, lastFed } = cat;
+      const { name, breed, markings, lastFed, profileImage } = cat;
 
       const lastFedString = lastFed ? formatDate(lastFed): 'never :(';
 
-      const dataContainer = document.createElement('div');
-      dataContainer.className = 'data-container';
+      const columnContainer = document.createElement('div');
+      columnContainer.className = 'column-container';
+
+      const rowContainer = document.createElement('div');
+      rowContainer.className = 'row-container';
 
       const catNameTitleElement = document.createElement('h1');
       catNameTitleElement.textContent = name;
@@ -53,12 +57,18 @@
       const lastFedTextElement = document.createElement('span');
       lastFedTextElement.innerHTML = `<b>Last Fed</b>: ${lastFedString}`;
 
-      dataContainer.appendChild(catBreedTextElement);
-      dataContainer.appendChild(catMarkingsTextElement);
-      dataContainer.appendChild(lastFedTextElement);
+      const catPictureElement = document.createElement('img');
+      catPictureElement.src = profileImage ? profileImage : 'http://placekitten.com/200/200';
+
+      columnContainer.appendChild(catBreedTextElement);
+      columnContainer.appendChild(catMarkingsTextElement);
+      columnContainer.appendChild(lastFedTextElement);
+
+      rowContainer.appendChild(catPictureElement);
+      rowContainer.appendChild(columnContainer);
 
       cardElement.appendChild(catNameTitleElement);
-      cardElement.appendChild(dataContainer)
+      cardElement.appendChild(rowContainer)
     } else {
 
       const notFoundTitleElement = document.createElement('h1');
