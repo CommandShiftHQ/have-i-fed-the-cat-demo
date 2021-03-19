@@ -1,8 +1,9 @@
 .row-container {
   display: flex;
   width: 100%;
+  margin: 10px;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   color: #050404;
 }

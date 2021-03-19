@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="../css/index.css" />
   <link rel="stylesheet" href="../css/content-container.css" />
   <link rel="stylesheet" href="../css/content-card.css" />
-  <link rel="stylesheet" href="../css/data-container.css" />
+  <link rel="stylesheet" href="../css/column-container.css" />
+  <link rel="stylesheet" href="../css/row-container.css" />
   <title>Have I Fed The Cat?</title>
 </head>
 <body>
@@ -17,10 +18,39 @@
   </nav>
   <main>
     <div id="content-container">
-      <div class="content-card" ></div>
+      <div class="content-card" >
+        <h1>Create a Cat</h1>
+        <div class = column-container>
+          <form onsubmit="postCat(event)" id="upload-form" >
+            <div class="row-container">
+                <label for="catNameField">Name:</label>
+                <input type="text" id="catNameField" name="name" />
+            </div>
+
+            <div class="row-container">
+              <label for="catBreedField">Breed:</label>
+              <input type="text" id="catBreedField" name="breed" />
+            </div>
+
+            <div class="row-container">
+              <label for="catMarkingsField">Markings:</label>
+              <input type="text" id="catMarkingsField" name="markings" />
+            </div>
+
+            <div class="row-container">
+                <label for="catImageField">Image:</label>
+                <input type="file" name="image" id="catImageField">
+            </div>
+
+            <input type="submit" value="Submit">
+        </form>
+    </main>
+        </div>
+      </div>
     </div>
   </main>
 </body>
+<script src="../js/post-cat.js"></script>
 <script>
   // immediately invoked function expression - IIFE
   (async () => {
