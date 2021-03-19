@@ -3,7 +3,8 @@
   height: 300px;
   padding: 20px;
   margin: 20px;
-  border: 5px solid black;
+  border: 5px solid #050404;
+  background-color: #EEEEEE;
   display: flex;
   align-items: center;
   justify-content: space-around;

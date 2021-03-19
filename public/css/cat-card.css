@@ -3,7 +3,8 @@
   height: 150px;
   padding: 20px;
   margin: 20px;
-  border: 5px solid black;
+  border: 5px solid #050404;
+  background-color: #EEEEEE;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,4 +18,5 @@
 
 .cat-card a {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 1.5em;
 }
