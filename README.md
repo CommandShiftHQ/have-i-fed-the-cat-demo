@@ -29,7 +29,7 @@ npm start
 
 This is the example code for the `Uploading Images` lecture.
 
-The completed example is viewable on the `image-solution` branch.
+The completed example is viewable on the `image-uploads-solution` branch.
 
 ## Setting Up
 
@@ -98,7 +98,7 @@ Next, we will need to write a `policy` for the bucket. This will allow your fron
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "blog-cms-publc-read",
+            "Sid": "cat-app-publc-read",
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
@@ -163,7 +163,7 @@ Multer is a middleware which lets us handle `multipart/form-data`. This is the c
 Install multer with `npm i -S multer`. To use it, we need to add it to our router:
 
 ```js
-// src/routes/posts.js
+// src/app.js
 
 ...
 const multer = require('multer');
@@ -179,12 +179,12 @@ This tells multer that we want to hold uploaded files in memory and then handle 
 Next, we need to add our `upload` to our middlware chain:
 
 ```js
-// src/routes/posts.js
+// src/app.js
 
 ...
-router.route('/')
-    .post(upload.single('file'), postController.create)
-    .get(postController.readAll);
+app.post("/cats", upload.single('file'), (req, res) => {
+  Cat.create(req.body).then((cat) => res.status(201).json(cat));
+});
 ...
 ```
 
@@ -195,7 +195,7 @@ This tells multer to look in our `request` for a propery matching the string we 
 The `aws-sdk` (software development kit) give us access to methods that let us interact with AWS services. To use it, we will need to require it in our controller, and then use it to create a `new AWS.S3()`:
 
 ```js
-// src/controllers/post.js
+// src/app.js
 
 ...
 const AWS = require('aws-sdk');
@@ -205,12 +205,12 @@ const s3 = new AWS.S3();
 
 ```
 
-For now we will keep our code simple, but note that the solution branch absracts this into a `middleware` and `service`.
+For now we will keep our code simple, but note that this would benefit from being abstracted into a `middleware` and `service`.
 
 We can now use our `s3` object to write a function to upload our file to s3:
 
 ```js
-// src/controllers/post.js
+// src/app.js
 const uploadFile = (file) => new Promise((resolve, reject) => {
     const fileKey = Date.now().toString();
 
@@ -235,19 +235,20 @@ Note that `AWS-SDK` methods take a `callback function`, rather than returning `p
 Now we need to change our controller to use our `uploadFile` function, before saving the rest of our post to the database:
 
 ```js
-// src/controllers/post.js
+// src/app.js
 
 ...
-exports.create = (req, res) => {
-    uploadFile(req.file)
+app.post("/cats", upload.single('file'), (req, res) => {
+  uploadFile(req.file)
         .then((imageUrl) => {
             req.body.imageUrl = imageUrl;
-            createItem(res, 'posts', req.body);
+            return Cat.create(req.body);
         })
+        .then((cat) => res.status(201).json(cat))
         .catch(error => {
             res.status(500).json({ error: error })
         })
-}
+});
 ...
 ```
 

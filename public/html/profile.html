@@ -37,7 +37,7 @@
       cardElement.className = 'content-card';
 
     if (cat) {
-      const { name, breed, markings, lastFed, profileImage } = cat;
+      const { name, breed, markings, lastFed, imageUrl } = cat;
 
       const lastFedString = lastFed ? formatDate(lastFed): 'never :(';
 
@@ -60,7 +60,7 @@
       lastFedTextElement.innerHTML = `<b>Last Fed</b>: ${lastFedString}`;
 
       const catPictureElement = document.createElement('img');
-      catPictureElement.src = profileImage ? profileImage : 'http://placekitten.com/200/200';
+      catPictureElement.src = imageUrl ? imageUrl : 'http://placekitten.com/200/200';
 
       const catControlsElement = document.createElement('div')
       catControlsElement.className = 'row-container'

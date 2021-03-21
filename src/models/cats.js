@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     breed: DataTypes.STRING,
     markings: DataTypes.STRING,
-    lastFed: DataTypes.DATE
+    lastFed: DataTypes.DATE,
+    imageUrl: DataTypes.STRING,
   }
 
   return sequelize.define('Cat', schema)

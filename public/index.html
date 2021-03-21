@@ -27,15 +27,17 @@
     const catListElement = document.getElementById('content-container');
 
     cats.forEach(cat => {
+      const { imageUrl, name, id } = cat;
+
       const catCardElement = document.createElement('div');
       catCardElement.className = 'cat-card';
 
       const catImageElement = document.createElement('img');
-      catImageElement.src = cat.profileImage || 'http://placekitten.com/100/100' 
+      catImageElement.src = imageUrl || 'http://placekitten.com/100/100' 
 
       const catProfileLinkElement = document.createElement('a');
-      catProfileLinkElement.text = cat.name;
-      catProfileLinkElement.href = `http://${window.location.host}/html/profile.html?catId=${cat.id}`
+      catProfileLinkElement.text = name;
+      catProfileLinkElement.href = `http://${window.location.host}/html/profile.html?catId=${id}`
 
       catCardElement.appendChild(catImageElement);
       catCardElement.appendChild(catProfileLinkElement);
