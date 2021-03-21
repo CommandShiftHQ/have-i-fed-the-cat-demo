@@ -238,7 +238,7 @@ Now we need to change our controller to use our `uploadFile` function, before sa
 // src/app.js
 
 ...
-app.post("/cats", upload.single('file'), (req, res) => {
+app.post("/cats", upload.single('image'), (req, res) => {
   uploadFile(req.file)
         .then((imageUrl) => {
             req.body.imageUrl = imageUrl;
@@ -254,10 +254,9 @@ app.post("/cats", upload.single('file'), (req, res) => {
 
 Here we are calling our `uploadFile` function, which saves the file to the bucket, and sets the current time as the file name. Next it returns the `imageUrl`, which we then add to our `req.body` and then feed into our `createItem` helper function.
 
-If everything has worked, we should be able to use the `admin.html` page to upload a post, and then view it at `localhost:4000`.
+If everything has worked, we should be able to use the `/html/create-cat.html` page to create a new cat with a photo, and then view it at `localhost:4000`.
 
 ## Next Steps
 
 - There is currently no authenticaton required to upload images. If you want to deploy this as an app, then you should add a password middleware to your `create`, `update` and `delete` routes.
 
-- The frontend is completely unstyled, you could add some `css` files, or you could use the skills you gain from the `frontend` module to make a `react app`.
