@@ -2,17 +2,51 @@ const express = require("express");
 const { Cat } = require("./models");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDoc = require("../swagger.json");
+const multer = require('multer');
+const AWS = require('aws-sdk');
+
+const s3 = new AWS.S3();
+
+const uploadFile = (file) => new Promise((resolve, reject) => {
+  const fileKey = Date.now().toString();
+
+  const params = {
+      Body: file.buffer,
+      Bucket: process.env.BUCKET_NAME,
+      Key: fileKey,
+  }
+
+  s3.putObject(params, (err) => {
+      if (err) {
+          reject(err);
+      } else {
+          resolve(`${process.env.BUCKET_URL}/${fileKey}`)
+      }
+  })
+})
 
 const app = express();
 
 app.use(express.json());
 
+const upload = multer({
+  storage: multer.memoryStorage(),
+});
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 app.use(express.static('public'))
 
-app.post("/cats", (req, res) => {
-  Cat.create(req.body).then((cat) => res.status(201).json(cat));
+app.post("/cats", upload.single('image'), (req, res) => {
+  uploadFile(req.file)
+        .then((imageUrl) => {
+            req.body.imageUrl = imageUrl;
+            return Cat.create(req.body);
+        })
+        .then((cat) => res.status(201).json(cat))
+        .catch(error => {
+            res.status(500).json({ error: error })
+        })
 });
 
 app.get("/cats", (req, res) => {
