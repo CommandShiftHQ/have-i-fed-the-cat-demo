@@ -15,7 +15,10 @@ async function postCat(event) {
 
   const response = await fetch(`http://${window.location.host}/cats`, {
       method: 'POST',
-      body: formData
+      body: formData,
+      headers: {
+        Authorization: getToken()
+      },
   })
 
   const responseBody = await response.json()

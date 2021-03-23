@@ -21,37 +21,28 @@
   <main>
     <div id="content-container">
       <div class="content-card">
-        <h1>Create a Cat</h1>
+        <h1>Create an Account</h1>
         <div class=column-container>
-          <form onsubmit="postCat(event)" id="upload-form">
+          <form onsubmit="signUp(event)" id="sign-up-form">
             <div class="row-container">
-              <label for="catNameField">Name:</label>
-              <input type="text" id="catNameField" name="name" />
+              <label for="email">Email:</label>
+              <input type="email" id="emailField" name="email" />
             </div>
 
             <div class="row-container">
-              <label for="catBreedField">Breed:</label>
-              <input type="text" id="catBreedField" name="breed" />
+              <label for="passwordField">password:</label>
+              <input type="password" id="passwordField" name="password" />
             </div>
 
-            <div class="row-container">
-              <label for="catMarkingsField">Markings:</label>
-              <input type="text" id="catMarkingsField" name="markings" />
-            </div>
-
-            <div class="row-container">
-              <label for="catImageField">Image:</label>
-              <input type="file" name="image" id="catImageField">
-            </div>
-
-            <input type="submit" value="Submit">
+            <input type="submit" value="Sign Up">
           </form>
+          <a href="login.html">already have an account?</a>
         </div>
       </div>
     </div>
   </main>
 </body>
-<script src="../js/post-cat.js"></script>
+<script src="../js/sign-up.js"></script>
 <script src="../js/token-utils.js"></script>
 <script>
   // immediately invoked function expression - IIFE
