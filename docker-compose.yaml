@@ -1,0 +1,32 @@
+version: "3"
+services:
+  express-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      database:
+        condition: service_healthy
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - 3000:3000
+    environment:
+      - DB_NAME=have_i_fed_the_cat_app
+      - DB_HOST=database
+      - DB_PASSWORD=password
+      - DB_USER=root
+      - DB_PORT=3306
+    command: ["npm", "test"]
+
+  database:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
