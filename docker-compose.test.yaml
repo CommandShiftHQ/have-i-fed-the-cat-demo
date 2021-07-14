@@ -1,0 +1,6 @@
+version: "3"
+services:
+  express-app:
+    volumes:
+      - ./:/usr/src/app
+    command: ["npm", "test"]

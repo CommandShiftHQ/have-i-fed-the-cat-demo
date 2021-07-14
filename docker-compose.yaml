@@ -4,12 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    restart: unless-stopped
     depends_on:
       database:
         condition: service_healthy
-    volumes:
-      - ./:/usr/src/app
     ports:
       - 3000:3000
     environment:
@@ -18,7 +15,7 @@ services:
       - DB_PASSWORD=password
       - DB_USER=root
       - DB_PORT=3306
-    command: ["npm", "test"]
+    command: ["npm", "start"]
 
   database:
     image: mysql

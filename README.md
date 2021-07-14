@@ -22,3 +22,17 @@ cd have-i-fed-the-cat-demo
 npm install
 npm start
 ```
+
+# Docker-Compose
+
+running the app:
+
+```
+  docker-compose up
+```
+
+running the integration tests:
+
+```
+  docker-compose -f docker-compose.yaml -f docker-compose.test.yaml up --abort-on-container-exit
+```
