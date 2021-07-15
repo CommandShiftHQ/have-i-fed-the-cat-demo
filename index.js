@@ -1,5 +1,6 @@
 const app = require('./src/app');
-    
-app.listen(3000, () =>{
-  console.log('app is listening on localhost:3000')
-})
+const { logInfo } = require('./src/utils/logger');
+
+app.listen(3000, () => {
+  logInfo('app is listening on localhost:3000');
+});
