@@ -1,17 +1,17 @@
-const app = require('../src/app');
 const { expect } = require('chai');
 const request = require('supertest');
+const app = require('../src/app');
 const { Cat } = require('../src/models');
 
 describe('/cats', () => {
   before((done) => {
     Cat.sequelize.sync().then(() => done());
-  })
+  });
 
   afterEach((done) => {
     Cat.destroy({ where: {} })
-    .then(() => done());
-  })
+      .then(() => done());
+  });
 
   describe('with no records in the database', () => {
     describe('POST', () => {
@@ -19,28 +19,28 @@ describe('/cats', () => {
         const catData = {
           name: 'Boris',
           breed: 'domestic shorthair',
-          markings: 'tuxedo'
-        }
-  
+          markings: 'tuxedo',
+        };
+
         request(app)
           .post('/cats')
           .send(catData)
           .then(({ status, body }) => {
             expect(status).to.equal(201);
-  
+
             expect(body.name).to.equal(catData.name);
             expect(body.breed).to.equal(catData.breed);
             expect(body.markings).to.equal(catData.markings);
-            
+
             return Cat.findByPk(body.id, { raw: true });
           })
-          .then(catDocument => {
+          .then((catDocument) => {
             expect(catDocument.name).to.equal(catData.name);
             expect(catDocument.breed).to.equal(catData.breed);
             expect(catDocument.markings).to.equal(catData.markings);
             done();
           })
-          .catch(error => done(error));
+          .catch((error) => done(error));
       });
     });
   });
@@ -53,23 +53,23 @@ describe('/cats', () => {
         Cat.create({
           name: 'Jenny Any Dots',
           breed: 'domestic shorthair',
-          markings: 'ginger tabby'
+          markings: 'ginger tabby',
         }),
         Cat.create({
           name: 'Bustopher Jones',
           breed: 'domestic shorthair',
-          markings: 'tuxedo'
+          markings: 'tuxedo',
         }),
         Cat.create({
           name: 'Gus',
           breed: 'domestic shorthair',
-          markings: 'grey tabby'
-        })
+          markings: 'grey tabby',
+        }),
       ])
-      .then((documents) => {
-        cats = documents;
-        done();
-      })
+        .then((documents) => {
+          cats = documents;
+          done();
+        });
     });
 
     describe('GET', () => {
@@ -80,8 +80,8 @@ describe('/cats', () => {
           .then(({ status, body }) => {
             expect(status).to.equal(200);
             expect(body.cats.length).to.equal(cats.length);
-            body.cats.forEach(cat => {
-              const expected = cats.find(c => c.id == cat.id).dataValues;
+            body.cats.forEach((cat) => {
+              const expected = cats.find((c) => c.id === cat.id).dataValues;
               expect(cat.name).to.deep.equal(expected.name);
               expect(cat.breed).to.deep.equal(expected.breed);
               expect(cat.markings).to.deep.equal(expected.markings);
@@ -117,7 +117,7 @@ describe('/cats', () => {
           request(app)
             .patch(`/cats/${catData.id}`)
             .send({
-              name: 'new name'
+              name: 'new name',
             })
             .then(({ status, body }) => {
               expect(status).to.equal(200);
@@ -135,7 +135,7 @@ describe('/cats', () => {
       });
 
       describe('DELETE', () => {
-        it('deletes the cat from the datbase', (done) => {
+        it('deletes the cat from the database', (done) => {
           const catData = cats[0].dataValues;
           request(app)
             .delete(`/cats/${catData.id}`)
