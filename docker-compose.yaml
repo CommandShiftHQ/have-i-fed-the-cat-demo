@@ -7,8 +7,6 @@ services:
     depends_on:
       database:
         condition: service_healthy
-    ports:
-      - 3000:3000
     environment:
       - DB_NAME=have_i_fed_the_cat_app
       - DB_HOST=database

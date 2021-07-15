@@ -25,14 +25,20 @@ npm start
 
 # Docker-Compose
 
-running the app:
+running the app locally:
 
 ```
-  docker-compose up
+  docker-compose -f docker-compose.yaml -f docker-compose.local.yaml up --abort-on-container-exit
 ```
 
 running the integration tests:
 
 ```
   docker-compose -f docker-compose.yaml -f docker-compose.test.yaml up --abort-on-container-exit
+```
+
+running the app in "prod"
+
+```
+docker-compose -f docker-compose.yaml -f docker-compose.prod.yaml up
 ```

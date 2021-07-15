@@ -1,0 +1,5 @@
+version: "3"
+services:
+  express-app:
+    ports:
+      - 3000:3000
