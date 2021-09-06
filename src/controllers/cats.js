@@ -1,7 +1,5 @@
 const catRepository = require('../repository/cats')
 
-const { Cat } = require('../models')
-
 exports.create = (req, res) => {
   catRepository.createCat(req.body).then((cat) => res.status(201).json(cat));
 }
