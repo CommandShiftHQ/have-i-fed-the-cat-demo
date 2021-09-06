@@ -1,19 +1,23 @@
 const catRepository = require('../repository/cats')
 
 exports.create = (req, res) => {
-  catRepository.createCat(req.body).then((cat) => res.status(201).json(cat));
+  const { body } = req
+  catRepository.createCat(body).then((cat) => res.status(201).json(cat));
 }
 
 exports.getAll = (req, res) => {
-  catRepository.listCats(req.query).then((cats) => res.status(200).json({ cats }));
+  const { query } = req
+  catRepository.listCats(query).then((cats) => res.status(200).json({ cats }));
 }
 
 exports.getById = (req, res) => {
-  catRepository.findCat(req.params.catId).then((cat) => res.status(200).json(cat));
+  const { params: { catId } } = req
+  catRepository.findCat(catId).then((cat) => res.status(200).json(cat));
 }
 
 exports.update = (req, res) => {
-  catRepository.updateCat(req.params.catId, req.body).then((ok) => {
+  const { body, params: { catId } } = req
+  catRepository.updateCat(catId, body).then((ok) => {
     if (ok) {
       res.sendStatus(200)
     } else {
@@ -23,7 +27,8 @@ exports.update = (req, res) => {
 }
 
 exports.feed = (req, res) => {
-  catRepository.feedCat(req.params.id).then(ok => {
+  const { params: { catId } } = req
+  catRepository.feedCat(catId).then(ok => {
     if (ok) {
       res.sendStatus(200)
     } else {
@@ -33,7 +38,8 @@ exports.feed = (req, res) => {
 }
 
 exports.delete = (req, res) => {
-  catRepository.deleteCat(req.params.catId).then(ok => {
+  const { params: { catId } } = req
+  catRepository.deleteCat(catId).then(ok => {
     if (ok) {
       res.sendStatus(200)
     } else {
