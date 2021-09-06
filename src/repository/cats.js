@@ -1,5 +1,4 @@
 const { Cat } = require('../models')
-const cats = require('../models/cats')
 
 exports.createCat = (data) => new Promise((resolve, reject) => {
   Cat.create(data).then(cat => resolve(cat)).catch(err => reject(err))
