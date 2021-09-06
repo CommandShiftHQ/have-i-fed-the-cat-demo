@@ -2,7 +2,7 @@ const catRepository = require('../repository/cats')
 
 exports.create = (req, res) => {
   const { body } = req
-  catRepository.createCat(body).then((cat) => res.status(201).json(cat));
+  catRepository.createCat(body).then((cat) => res.status(201).json(cat)).catch(err => res.status(500).json(err));
 }
 
 exports.getAll = (req, res) => {

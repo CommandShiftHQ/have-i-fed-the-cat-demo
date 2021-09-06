@@ -1,7 +1,7 @@
-const app = require('../src/app');
+const app = require('../../src/app');
 const { expect } = require('chai');
 const request = require('supertest');
-const { Cat } = require('../src/models');
+const { Cat } = require('../../src/models');
 
 describe('/cats', () => {
   before((done) => {
