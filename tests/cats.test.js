@@ -121,7 +121,6 @@ describe('/cats', () => {
             })
             .then(({ status, body }) => {
               expect(status).to.equal(200);
-              expect(body.catsUpdated).to.equal(1);
 
               return Cat.findByPk(catData.id, { raw: true });
             })
@@ -142,7 +141,11 @@ describe('/cats', () => {
             .send()
             .then(({ status, body }) => {
               expect(status).to.equal(200);
-              expect(body.catsDeleted).to.equal(1);
+
+              return Cat.findByPk(catData.id, { raw: true });
+            })
+            .then((catDocument) => {
+              expect(catDocument).to.not.exist;
 
               done();
             })
