@@ -29,15 +29,14 @@ describe('create', () => {
     sinon.assert.calledOnce(createCatSpy)
   })
 
-    it('spy', () => {
-      const createCatStub = sinon.stub(catRepository, "createCat").callsFake(data => Promise.resolve(data))
-  
-      create(req, res)
-  
-      sinon.assert.calledWith(createCatStub, req.body)
-    })
+  it('stub', () => {
+    const createCatStub = sinon.stub(catRepository, "createCat").callsFake(data => Promise.resolve(data))
 
-  
+    create(req, res)
+
+    sinon.assert.calledWith(createCatStub, req.body)
+  })
+ 
     it("mock", () => {
       const mockCatRepository = sinon.mock(catRepository)
       mockCatRepository.expects("createCat")
