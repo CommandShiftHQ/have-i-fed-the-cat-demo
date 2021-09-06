@@ -23,7 +23,13 @@ exports.update = (req, res) => {
 }
 
 exports.feed = (req, res) => {
-  catRepository.feedCat(req.params.id).then(() => res.status(200).send());
+  catRepository.feedCat(req.params.id).then(ok => {
+    if (ok) {
+      res.sendStatus(200)
+    } else {
+      res.sendStatus(404)
+    }
+  });
 }
 
 exports.delete = (req, res) => {
