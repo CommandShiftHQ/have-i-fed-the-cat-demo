@@ -1,11 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
-  const schema = {
-    name: DataTypes.STRING,
-    breed: DataTypes.STRING,
-    markings: DataTypes.STRING,
-    lastFed: DataTypes.DATE
-  }
+	const schema = {
+		name: DataTypes.STRING,
+		breed: DataTypes.STRING,
+		markings: DataTypes.STRING,
+		lastFed: DataTypes.DATE
+	}
 
-  return sequelize.define('Cat', schema)
+	return sequelize.define('Cat', schema)
 }
-
