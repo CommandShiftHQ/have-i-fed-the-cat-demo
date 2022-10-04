@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: cat-app
+    env: node
+    region: frankfurt
+    envVars:
+      - key: DB_NAME
+        fromDatabase:
+          name: database
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: database
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: database
+          property: password
+      - key: DB_HOST
+        fromDatabase:
+          name: database
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: database
+          property: port
+
+databases:
+  - name: database
+    databaseName: cats
+    ipAllowList: [] 
