@@ -9,23 +9,23 @@ services:
     envVars:
       - key: DB_NAME
         fromDatabase:
-          name: database
+          name: cat-app-database
           property: database
       - key: DB_USER
         fromDatabase:
-          name: database
+          name: cat-app-database
           property: user
       - key: DB_PASSWORD
         fromDatabase:
-          name: database
+          name: cat-app-database
           property: password
       - key: DB_HOST
         fromDatabase:
-          name: database
+          name: cat-app-database
           property: host
       - key: DB_PORT
         fromDatabase:
-          name: database
+          name: cat-app-database
           property: port
 
 databases:

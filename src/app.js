@@ -5,8 +5,6 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
-
 app.post("/cats", (req, res) => {
   Cat.create(req.body).then((cat) => res.status(201).json(cat));
 });
