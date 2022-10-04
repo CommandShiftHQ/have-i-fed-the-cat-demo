@@ -29,5 +29,6 @@ services:
 
 databases:
   - name: database
+    plan: free
     databaseName: cats
     ipAllowList: [] 
