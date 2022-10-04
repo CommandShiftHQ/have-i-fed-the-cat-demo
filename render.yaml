@@ -29,7 +29,8 @@ services:
           property: port
 
 databases:
-  - name: database
+  - name: cat-app-database
     plan: free
+    region: frankfurt
     databaseName: cats
     ipAllowList: [] 
