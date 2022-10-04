@@ -3,6 +3,7 @@ services:
     name: cat-app
     env: node
     region: frankfurt
+    plan: free
     buildCommand: npm ci
     startCommand: node index.js
     envVars:
