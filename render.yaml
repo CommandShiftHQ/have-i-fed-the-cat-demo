@@ -3,6 +3,8 @@ services:
     name: cat-app
     env: node
     region: frankfurt
+    buildCommand: npm ci
+    startCommand: node index.js
     envVars:
       - key: DB_NAME
         fromDatabase:
